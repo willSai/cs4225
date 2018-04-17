@@ -55,6 +55,7 @@
                         var parsedCSV = d3.csvParseRows(data);
 
                         var table = d3.select("#table_div").append("table").attr("class", "table table-striped table-bordered");
+
                         var tbody = table.append("tbody");
                         tbody.selectAll("tr")
                             .data(parsedCSV).enter()
@@ -145,7 +146,6 @@
                     <!--Stacked Tabs Left-->
                     <!--===================================================-->
                     <div class="tab-base tab-stacked-left">
-
                         <!--Nav tabs-->
                         <ul class="nav nav-tabs">
                             <li class="active">
