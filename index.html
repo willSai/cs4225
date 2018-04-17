@@ -41,8 +41,10 @@
                 paramName: 'file',
                 maxFilesize: 20, // MB
                 maxFiles: 3,
+                timeout: 60000,
                 dictDefaultMessage: 'Drag an image here to upload, or click to select one',
                 uploadMultiple: false,
+
                 autoProcessQueue: true,
                 headers: {
                     //'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
