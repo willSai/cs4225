@@ -68,10 +68,6 @@
                             .text(function (d) {
                                 return d;
                             });
-                        d3.select("#head_1").attr("class", "");
-                        d3.select("#head_2").attr("class", "active");
-                        d3.select("#demo-lft-tab-1").attr("class", "tab-pane fade");
-                        d3.select("#demo-lft-tab-2").attr("class", "tab-pane fade active in");
                     });
                     this.on("sending", function (file, xhr, formData) {
                         // Will send the filesize along with the file as POST data.
@@ -88,56 +84,35 @@
 <!--Default Tabs (Left Aligned)-->
 <!--===================================================-->
 <div class="tab-base">
-
-    <!--Panel heading-->
-    <div class="panel-heading">
-        <div class="panel-control">
-            <!--Nav Tabs-->
-            <ul class="nav nav-tabs">
-                <li id="head_1" class="active">
-                    <a data-toggle="tab" href="#demo-lft-tab-1">Upload Files</a>
-                </li>
-                <li id="head_2">
-                    <a data-toggle="tab" href="#demo-lft-tab-2">Tables & Charts</a>
-                </li>
-            </ul>
-        </div>
-        <h3 class="panel-title">Oofy</h3>
-    </div>
-
     <!--Tabs Content-->
     <div class="tab-content">
-        <div id="demo-lft-tab-1" class="tab-pane fade active in">
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Upload Documents</h3>
-                </div>
-                <div class="panel-body">
-
-                    <!--Dropzonejs-->
-                    <!--===================================================-->
-                    <form id="data" action="https://42q6iw44o2.execute-api.ap-southeast-1.amazonaws.com/api/upload"
-                          method="post" class="dropzone">
-                        <div class="dz-default dz-message">
-                            <div class="dz-icon icon-wrap icon-circle icon-wrap-md">
-                                <i class="fa fa-cloud-upload fa-3x"></i>
-                            </div>
-                            <div>
-                                <p class="dz-text">Drop files to upload</p>
-                                <p class="text-muted">or click to pick manually</p>
-                            </div>
-                        </div>
-                        <div class="fallback">
-                            <input name="file" type="file"/>
-                        </div>
-                    </form>
-                    <!--===================================================-->
-                    <!-- End Dropzonejs -->
-
-                </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Upload Documents</h3>
             </div>
-        </div>
-        <div id="demo-lft-tab-2" class="tab-pane fade">
+            <div class="panel-body">
+
+                <!--Dropzonejs-->
+                <!--===================================================-->
+                <form id="data" action="https://42q6iw44o2.execute-api.ap-southeast-1.amazonaws.com/api/upload"
+                      method="post" class="dropzone">
+                    <div class="dz-default dz-message">
+                        <div class="dz-icon icon-wrap icon-circle icon-wrap-md">
+                            <i class="fa fa-cloud-upload fa-3x"></i>
+                        </div>
+                        <div>
+                            <p class="dz-text">Drop files to upload</p>
+                            <p class="text-muted">or click to pick manually</p>
+                        </div>
+                    </div>
+                    <div class="fallback">
+                        <input name="file" type="file"/>
+                    </div>
+                </form>
+                <!--===================================================-->
+                <!-- End Dropzonejs -->
+
+            </div>
             <div class="panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">Tables & Charts</h3>
@@ -181,46 +156,45 @@
             </div>
         </div>
     </div>
-</div>
-<!--===================================================-->
-<!--End Default Tabs (Left Aligned)-->
+    <!--===================================================-->
+    <!--End Default Tabs (Left Aligned)-->
 
-<!--JAVASCRIPT-->
-<!--=================================================-->
+    <!--JAVASCRIPT-->
+    <!--=================================================-->
 
-<script src="Pages/js/jquery-2.1.1.min.js"></script>
+    <script src="Pages/js/jquery-2.1.1.min.js"></script>
 
-<!--Dropzone [ OPTIONAL ]-->
-<script src="Pages/js/dropzone/dropzone.min.js"></script>
+    <!--Dropzone [ OPTIONAL ]-->
+    <script src="Pages/js/dropzone/dropzone.min.js"></script>
 
-<!--BootstrapJS [ RECOMMENDED ]-->
-<script src="Pages/js/bootstrap.min.js"></script>
+    <!--BootstrapJS [ RECOMMENDED ]-->
+    <script src="Pages/js/bootstrap.min.js"></script>
 
-<!--Nifty Admin [ RECOMMENDED ]-->
-<script src="Pages/js/nifty.min.js"></script>
+    <!--Nifty Admin [ RECOMMENDED ]-->
+    <script src="Pages/js/nifty.min.js"></script>
 
-<!--JAVASCRIPT-->
-<!--=================================================-->
-
-
-<!--Fast Click [ OPTIONAL ]-->
-<script src="Pages/plugins/fast-click/fastclick.min.js"></script>
+    <!--JAVASCRIPT-->
+    <!--=================================================-->
 
 
-<!--Nifty Admin [ RECOMMENDED ]-->
-<script src="Pages/js/nifty.min.js"></script>
+    <!--Fast Click [ OPTIONAL ]-->
+    <script src="Pages/plugins/fast-click/fastclick.min.js"></script>
 
 
-<!--Switchery [ OPTIONAL ]-->
-<script src="Pages/plugins/switchery/switchery.min.js"></script>
+    <!--Nifty Admin [ RECOMMENDED ]-->
+    <script src="Pages/js/nifty.min.js"></script>
 
 
-<!--Bootstrap Select [ OPTIONAL ]-->
-<script src="Pages/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <!--Switchery [ OPTIONAL ]-->
+    <script src="Pages/plugins/switchery/switchery.min.js"></script>
 
 
-<!--Demo script [ DEMONSTRATION ]-->
-<script src="Pages/js/demo/nifty-demo.min.js"></script>
+    <!--Bootstrap Select [ OPTIONAL ]-->
+    <script src="Pages/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+
+
+    <!--Demo script [ DEMONSTRATION ]-->
+    <script src="Pages/js/demo/nifty-demo.min.js"></script>
 
 
 </body>
