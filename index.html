@@ -38,17 +38,122 @@
     <script type="text/javascript">
         $(function () {
             function uuidv4() {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                     return v.toString(16);
                 });
             }
 
             var uuid = localStorage.getItem("uuid");
-            if(!uuid){
+            if (!uuid) {
                 uuid = uuidv4();
                 localStorage.setItem("uuid", uuidv4());
             }
+            var mont_dict = {
+                "01": "Jan",
+                "02": "Feb",
+                "03": "Mar",
+                "04": "Apr",
+                "05": "May",
+                "06": "Jun",
+                "07": "Jul",
+                "08": "Aug",
+                "09": "Sep",
+                "10": "Oct",
+                "11": "Nov",
+                "12": "Dec"
+            };
+            var tmp_dataset = {};
+            var total_money = 0;
+            var active_year = 0;
+            $.ajax({
+                type: 'GET',
+                url: 'https://42q6iw44o2.execute-api.ap-southeast-1.amazonaws.com/api/transactions/' + uuid,
+                dataType: "text",
+                success: function (data) {
+                    tmp_dataset = {};
+                    total_money = 0;
+                    var lines = data.split("\n");
+                    for (var line in lines) {
+                        if (line === "0" || lines[line] === "") continue;
+                        var cells = lines[line].split(",");
+                        var year = cells[6].split("-")[0];
+                        var month = mont_dict[cells[6].split("-")[1]];
+                        var category = cells[7];
+                        if (!tmp_dataset[year]) {
+                            tmp_dataset[year] = {}
+                        }
+                        if (!tmp_dataset[year][month]) {
+                            tmp_dataset[year][month] = {}
+                        }
+                        if (!tmp_dataset[year][month][category]) {
+                            tmp_dataset[year][month][category] = 0
+                        }
+                        tmp_dataset[year][month][category] += parseFloat(cells[4]);
+                        total_money += parseFloat(cells[4]);
+                    }
+                    d3.select("#years_button").selectAll("*").remove();
+                    d3.select("#years_button").append("button").attr("class", "btn btn-default btn-active-purple").attr("name", "year_button_i").text(Object.keys(tmp_dataset));
+                    $("button[name='year_button_i']").click(function () {
+                        $("button[name='year_button_i']").removeClass("active");
+                        $(this).addClass("active");
+                        active_year = $(this).text();
+                    });
+                }
+            });
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+
+            $("a[name='tabs_month']").click(function () {
+                var current_year = active_year;
+                if (!tmp_dataset[current_year] || !tmp_dataset[current_year][this.text]) {
+                    d3.select("#head_of_chart").text("No data");
+                    d3.select("#panel_bar").selectAll("*").remove();
+                    d3.select("#demo-flot-donut").selectAll("*").remove();
+                    return;
+                }
+
+                d3.select("#head_of_chart").text("Rate of Each Category");
+                var tmp = tmp_dataset[current_year][this.text];
+                var chart_data = [];
+                var panel_bar = d3.select("#panel_bar");
+                panel_bar.selectAll("*").remove();
+
+                Object.keys(tmp).forEach(function (key) {
+                    var color = getRandomColor();
+                    // data for pie chart
+                    chart_data.push({label: key, data: tmp[key], color: color});
+                    // rebuild progress bar
+                    panel_bar.append("p").text(key);
+                    var percent = (parseFloat(tmp[key]) / total_money * 100).toFixed(2) + "%";
+                    panel_bar.append("div").attr("class", "progress").append("div").style("width", percent).style("background-color", color).attr("class", "progress-bar progress-bar-info").text(tmp[key]);
+                });
+                // rebuild pie chart
+                $.plot('#demo-flot-donut', chart_data, {
+                    series: {
+                        pie: {
+                            show: true,
+                            combine: {
+                                color: '#999',
+                                threshold: 0.1
+                            }
+                        }
+                    },
+                    legend: {
+                        show: false
+                    }
+                });
+
+            });
+
 
             Dropzone.options.data = {
                 paramName: 'file',
@@ -151,104 +256,136 @@
             </div>
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Charts</h3>
-                </div>
-                <div class="panel-body">
-                    <!--Stacked Tabs Left-->
-                    <!--===================================================-->
-                    <div class="tab-base tab-stacked-left">
-                        <!--Nav tabs-->
-                        <ul class="nav nav-tabs">
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Jan</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Feb</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Mar</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Apr</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">May</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Jun</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Jul</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Aug</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Sep</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Oct</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Nov</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" href="#demo-stk-lft-tab-2">Dec</a>
-                            </li>
-                        </ul>
-
-                        <!--Tabs Content-->
-                        <div class="tab-content">
-                            <div id="demo-stk-lft-tab-2" class="tab-pane fade">
-                                <h4 class="text-thin">Charts</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-                            </div>
-                        </div>
+                    <div class="col-lg-12">
+                        <h3 class="panel-title">Charts</h3>
                     </div>
                 </div>
             </div>
 
         </div>
+        <div class="btn-toolbar">
+            <div id="years_button" class="btn-group">
+            </div>
+        </div>
+        <!--===================================================-->
+        <div class="panel-body">
+            <!--Stacked Tabs Left-->
+            <!--===================================================-->
+            <div class="tab-base tab-stacked-left">
+                <!--Nav tabs-->
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a name="tabs_month" data-toggle="tab">Jan</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Feb</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Mar</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Apr</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">May</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Jun</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Jul</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Aug</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Sep</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Oct</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Nov</a>
+                    </li>
+                    <li>
+                        <a name="tabs_month" data-toggle="tab">Dec</a>
+                    </li>
+                </ul>
+
+                <!--Tabs Content-->
+                <div class="tab-content">
+                    <div id="demo-stk-lft-tab-2" class="tab-pane fade active in">
+                        <div class="col-lg-4">
+                            <div class="panel-heading">
+                                <h3 id="head_of_chart" class="panel-title"></h3>
+                            </div>
+                            <div class="panel-body">
+                                <!--Flot Donut Chart placeholder -->
+                                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                                <div id="demo-flot-donut" style="height:500px;width:500px"></div>
+                                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-lg-offset-1">
+                            <div class="panel">
+                                <div class="panel-body" id="panel_bar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <!--===================================================-->
-    <!--End Default Tabs (Left Aligned)-->
+</div>
+<!--===================================================-->
+<!--End Default Tabs (Left Aligned)-->
 
-    <!--JAVASCRIPT-->
-    <!--=================================================-->
+<!--JAVASCRIPT-->
+<!--=================================================-->
 
-    <script src="Pages/js/jquery-2.1.1.min.js"></script>
+<script src="Pages/js/jquery-2.1.1.min.js"></script>
 
-    <!--Dropzone [ OPTIONAL ]-->
-    <script src="Pages/js/dropzone/dropzone.min.js"></script>
+<!--Dropzone [ OPTIONAL ]-->
+<script src="Pages/js/dropzone/dropzone.min.js"></script>
 
-    <!--BootstrapJS [ RECOMMENDED ]-->
-    <script src="Pages/js/bootstrap.min.js"></script>
+<!--BootstrapJS [ RECOMMENDED ]-->
+<script src="Pages/js/bootstrap.min.js"></script>
 
-    <!--Nifty Admin [ RECOMMENDED ]-->
-    <script src="Pages/js/nifty.min.js"></script>
+<!--Nifty Admin [ RECOMMENDED ]-->
+<script src="Pages/js/nifty.min.js"></script>
 
-    <!--JAVASCRIPT-->
-    <!--=================================================-->
+<!--JAVASCRIPT-->
+<!--=================================================-->
+
+<!--Bootstrap Datepicker [ OPTIONAL ]-->
+<script src="Pages/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+<!--Fast Click [ OPTIONAL ]-->
+<script src="Pages/plugins/fast-click/fastclick.min.js"></script>
+
+<!--Flot Chart [ OPTIONAL ]-->
+<script src="Pages/plugins/flot-charts/jquery.flot.min.js"></script>
+<script src="Pages/plugins/flot-charts/jquery.flot.resize.min.js"></script>
+
+!--Flot Pie Chart [ OPTIONAL ]-->
+<script src="Pages/plugins/flot-charts/jquery.flot.pie.min.js"></script>
+
+<!--Nifty Admin [ RECOMMENDED ]-->
+<script src="Pages/js/nifty.min.js"></script>
 
 
-    <!--Fast Click [ OPTIONAL ]-->
-    <script src="Pages/plugins/fast-click/fastclick.min.js"></script>
+<!--Switchery [ OPTIONAL ]-->
+<script src="Pages/plugins/switchery/switchery.min.js"></script>
 
 
-    <!--Nifty Admin [ RECOMMENDED ]-->
-    <script src="Pages/js/nifty.min.js"></script>
+<!--Bootstrap Select [ OPTIONAL ]-->
+<script src="Pages/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 
 
-    <!--Switchery [ OPTIONAL ]-->
-    <script src="Pages/plugins/switchery/switchery.min.js"></script>
-
-
-    <!--Bootstrap Select [ OPTIONAL ]-->
-    <script src="Pages/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-
-
-    <!--Demo script [ DEMONSTRATION ]-->
-    <script src="Pages/js/demo/nifty-demo.min.js"></script>
+<!--Demo script [ DEMONSTRATION ]-->
+<script src="Pages/js/demo/nifty-demo.min.js"></script>
 
 
 </body>
