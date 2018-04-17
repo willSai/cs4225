@@ -2,6 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="baf569fb-a6ca-4a8b-9e3d-dd75452be0fe" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/.npmignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/.travis.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/papaparse.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/papaparse.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/player/player.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/player/player.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/player/player.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/long-sample.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/node-tests.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/sample.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/test-cases.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/test.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/tests.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Pages/js/d3.v5.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
@@ -17,8 +37,18 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="51" column="41" lean-forward="true" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+            <state relative-caret-position="392">
+              <caret line="199" column="47" lean-forward="true" selection-start-line="199" selection-start-column="47" selection-end-line="199" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -32,6 +62,9 @@
       <find>YES OPTUS</find>
       <find>print</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_AUTO_UPDATE" value="true" />
@@ -93,6 +126,12 @@
               <item name="cs4225" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Pages" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="cs4225" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cs4225" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Pages" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -105,6 +144,7 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -114,15 +154,16 @@
     </option>
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Pages/js" />
+      <recent name="$PROJECT_DIR$/cleaning/pdf-mining" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/cleaning" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/cleaning/pdf-mining/assets" />
       <recent name="$PROJECT_DIR$/cleaning/pdf-mining/assets/dbs" />
       <recent name="$PROJECT_DIR$/cleaning/pdf-mining/assets/uob" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/cleaning/pdf-mining" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/cleaning" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -183,7 +224,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1521135767986</updated>
-      <workItem from="1523942858495" duration="890000" />
+      <workItem from="1523942858495" duration="2554000" />
     </task>
     <task id="LOCAL-00001" summary="+ ignore">
       <created>1521135881330</created>
@@ -248,11 +289,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523943454400</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="* finish dbs statement pdf extraction">
+      <created>1523943748399</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1523943748399</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="890000" />
+    <option name="totallyTimeSpent" value="2554000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
@@ -262,6 +310,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3850385" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -274,7 +323,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -295,14 +343,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cleaning/pdf-mining/pdf2txt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="65" column="29" lean-forward="false" selection-start-line="65" selection-start-column="29" selection-end-line="65" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cleaning/pdf-mining/pdftotxt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1566">
@@ -550,10 +590,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Pages/js/PapaParse-4.3.2/tests/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pages/js/d3.v5.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="51" column="41" lean-forward="true" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+        <state relative-caret-position="392">
+          <caret line="199" column="47" lean-forward="true" selection-start-line="199" selection-start-column="47" selection-end-line="199" selection-end-column="47" />
           <folding />
         </state>
       </provider>
