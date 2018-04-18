@@ -95,6 +95,7 @@
                         if (!tmp_dataset[year][month][category]) {
                             tmp_dataset[year][month][category] = 0
                         }
+                        var money = cells[4].split(" CR")[0];
                         tmp_dataset[year][month][category] += parseFloat(cells[4]);
                         total_money += parseFloat(cells[4]);
                     }
