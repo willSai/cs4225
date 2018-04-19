@@ -38,351 +38,7 @@
 
     <script src="Pages/js/d3.v5.min.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-            function uuidv4() {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
-            }
-
-            var uuid = localStorage.getItem("uuid");
-            if (!uuid) {
-                uuid = uuidv4();
-                localStorage.setItem("uuid", uuidv4());
-            }
-
-            console.log(uuid);
-
-            var mont_dict = {
-                "01": "Jan",
-                "02": "Feb",
-                "03": "Mar",
-                "04": "Apr",
-                "05": "May",
-                "06": "Jun",
-                "07": "Jul",
-                "08": "Aug",
-                "09": "Sep",
-                "10": "Oct",
-                "11": "Nov",
-                "12": "Dec"
-            };
-            var tmp_dataset = {};
-            var total_money = 0;
-            var active_year = 0;
-            $.ajax({
-                type: 'GET',
-                url: 'https://42q6iw44o2.execute-api.ap-southeast-1.amazonaws.com/api/transactions/' + uuid,
-                dataType: "text",
-                success: function (data) {
-                    tmp_dataset = {};
-                    total_money = 0;
-                    var parsedCSV = d3.csvParseRows(data);
-                    parsedCSV.shift();
-                    for (var idx in parsedCSV) {
-                        var cells = parsedCSV[idx];
-                        var year = cells[5].split("-")[0];
-                        var month = mont_dict[cells[5].split("-")[1]];
-                        var category = cells[6];
-                        if (!tmp_dataset[year]) {
-                            tmp_dataset[year] = {}
-                        }
-                        if (!tmp_dataset[year][month]) {
-                            tmp_dataset[year][month] = {}
-                        }
-                        if (!tmp_dataset[year][month][category]) {
-                            tmp_dataset[year][month][category] = 0
-                        }
-                        var money = parseFloat(cells[3].replace(',', '').replace('CR', '').replace(' ', ''));
-                        tmp_dataset[year][month][category] += money;
-                        total_money += money;
-                    }
-
-                    d3.select("#years_button").selectAll("*").remove();
-                    Object.keys(tmp_dataset).forEach(function (key) {
-                        d3.select("#years_button").append("button").attr("class", "btn btn-default btn-active-purple").attr("name", "year_button_i").text(key);
-                    });
-                    $("button[name='year_button_i']").click(function () {
-                        $("button[name='year_button_i']").removeClass("active");
-                        $(this).addClass("active");
-                        active_year = $(this).text();
-                    });
-                }
-            });
-
-            function getRandomColor() {
-                var letters = '0123456789ABCDEF';
-                var color = '#';
-                for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
-            }
-
-
-            $("a[name='tabs_month']").click(function () {
-                var current_year = active_year;
-                if (!tmp_dataset[current_year] || !tmp_dataset[current_year][this.text]) {
-                    d3.select("#head_of_chart").text("No data");
-                    d3.select("#panel_bar").selectAll("*").remove();
-                    d3.select("#demo-flot-donut").selectAll("*").remove();
-                    return;
-                }
-
-                d3.select("#head_of_chart").text("Rate of Each Category");
-                var tmp = tmp_dataset[current_year][this.text];
-                var chart_data = [];
-                var panel_bar = d3.select("#panel_bar");
-                panel_bar.selectAll("*").remove();
-
-                Object.keys(tmp).forEach(function (key) {
-                    var color = getRandomColor();
-                    // data for pie chart
-                    chart_data.push({label: key, data: tmp[key].toFixed(2), color: color});
-                    // rebuild progress bar
-                    panel_bar.append("p").text(key);
-                    var percent = (parseFloat(tmp[key]) / total_money * 100).toFixed(2) + "%";
-                    panel_bar.append("div").attr("class", "progress").append("div").style("width", percent).style("background-color", color).attr("class", "progress-bar progress-bar-info").text("$ " + tmp[key].toFixed(2));
-                });
-                // rebuild pie chart
-                $.plot('#demo-flot-donut', chart_data, {
-                    series: {
-                        pie: {
-                            show: true,
-                            combine: {
-                                color: '#999',
-                                threshold: 0.1
-                            }
-                        }
-                    },
-                    legend: {
-                        show: false
-                    }
-                });
-
-            });
-
-            var categories = ["Auto Insurance",
-                "Auto Payment",
-                "Gas & Fuel",
-                "Parking",
-                "Public Transportation",
-                "Service & Parts",
-                "Home Phone",
-                "Internet",
-                "Mobile Phone",
-                "Television",
-                "Utilities",
-                "Advertising",
-                "Legal",
-                "Office Supplies",
-                "Printing",
-                "Shipping",
-                "Books & Supplies",
-                "Student Loan",
-                "Tuition",
-                "Amusement",
-                "Arts",
-                "Movies & DVDs",
-                "Music",
-                "Newspapers & Magazines",
-                "ATM Fee",
-                "Bank Fee",
-                "Finance Charge",
-                "Late Fee",
-                "Service Fee",
-                "Trade Commissions",
-                "Financial Advisor",
-                "Life Insurance",
-                "Alcohol & Bars",
-                "Coffee Shops",
-                "Fast Food",
-                "Groceries",
-                "Restaurants",
-                "Charity",
-                "Gift",
-                "Dentist",
-                "Doctor",
-                "Eyecare",
-                "Gym",
-                "Health Insurance",
-                "Pharmacy",
-                "Sports",
-                "Furnishings",
-                "Home Improvement",
-                "Home Insurance",
-                "Home Services",
-                "Home Supplies",
-                "Lawn & Garden",
-                "Mortgage & Rent",
-                "Bonus",
-                "Interest Income",
-                "Paycheck",
-                "Reimbursement",
-                "Rental Income",
-                "Returned Purchase",
-                "Allowance",
-                "Baby Supplies",
-                "Babysitter & Daycare",
-                "Child Support",
-                "Kids Activities",
-                "Toys",
-                "Hair",
-                "Laundry",
-                "Spa & Massage",
-                "Pet Food & Supplies",
-                "Pet Grooming",
-                "Veterinary",
-                "Books",
-                "Clothing",
-                "Electronics & Software",
-                "Hobbies",
-                "Sporting Goods",
-                "Federal Tax",
-                "Local Tax",
-                "Property Tax",
-                "Sales Tax",
-                "State Tax",
-                "Credit Card Payment",
-                "Transfer for Cash Spending",
-                "Air Travel",
-                "Hotel",
-                "Rental Car & Taxi",
-                "Vacation",
-                "Cash & ATM",
-                "Check"];
-
-            var data = ",Unnamed: 0,date,description,amount,foreign_amount,statement_date,category\n" +
-                "0,0,02 AUG,30 JUL NTUC FP-CITY SQUARE SINGAPORE,46.75,,2017-08-27 00:00:00,Groceries\n" +
-                "1,1,05 AUG,02 AUG TIM HO WAN @ 112 KATONG SINGAPORE,45.79,,2017-08-27 00:00:00,Restaurants\n" +
-                "2,2,07 AUG,03 AUG YAYOI JAPANESE RESTAURANTSINGAPORE,76.62,,2017-08-27 00:00:00,Restaurants\n";
-
-            Dropzone.options.data = {
-                paramName: 'file',
-                maxFilesize: 20, // MB
-                maxFiles: 3,
-                timeout: 60000,
-                dictDefaultMessage: 'Drag an image here to upload, or click to select one',
-                uploadMultiple: false,
-                autoProcessQueue: true,
-                headers: {
-                    //'x-csrf-token': document.querySelectorAll('meta[name=csrf-token]')[0].getAttributeNode('content').value,
-                },
-                acceptedFiles: '.pdf',
-                init: function () {
-                    this.on('success', function (file, resp) {
-                        var data = resp.csv;
-                        console.log(data);
-                        var parsedCSV_o = d3.csvParseRows(data);
-                        var parsedCSV = d3.csvParseRows(data);
-
-                        for (var idx in parsedCSV) {
-//                parsedCSV[idx].shift();
-                            parsedCSV[idx].shift();
-//                categories.push(parsedCSV[idx].pop())
-                        }
-
-                        var table = d3.select("#table_div").append("table").attr("class", "table table-striped table-bordered");
-
-                        var tbody = table.append("tbody");
-                        var thead = table.append('thead');
-
-                        var columns = parsedCSV.shift();
-
-
-                        // append the header row
-                        thead.append('tr')
-                            .selectAll('th')
-                            .data(columns).enter()
-                            .append('th')
-                            .text(function (column) {
-                                return column;
-                            });
-
-
-                        // create a row for each object in the data
-                        var rows = tbody.selectAll('tr')
-                            .data(parsedCSV)
-                            .enter()
-                            .append('tr');
-
-                        // create a cell in each row for each column
-                        var cells = rows.selectAll('td')
-                            .data(function (row) {
-                                return columns.map(function (column) {
-                                    var value = row.shift();
-                                    if (column === "category") {
-                                        var select_html = '<select data-placeholder="Choose a Category..." name="demo-chosen-select">\n';
-                                        for (idx in categories) {
-                                            if (value === categories[idx]) {
-                                                select_html += '<option value="' + categories[idx] + '" selected="selected">' + categories[idx] + '</option>\n'
-                                            } else {
-                                                select_html += '<option value="' + categories[idx] + '">' + categories[idx] + '</option>\n'
-                                            }
-                                        }
-                                        select_html += '</select>\n';
-                                        return {
-                                            column: column,
-                                            value: select_html
-                                        };
-
-                                    } else {
-                                        return {column: column, value: value};
-                                    }
-                                });
-                            })
-                            .enter()
-                            .append('td')
-                            .html(function (d) {
-                                return d.value;
-                            });
-
-                        $("select[name='demo-chosen-select']").chosen();
-
-                        d3.select("#submit_api2").on('click', function () {
-                            var category = [];
-                            $("select[name='demo-chosen-select'] option:selected").each(function () {
-                                category.push($(this).text())
-                            });
-
-                            for (var idx in parsedCSV_o) {
-                                if (idx === "0") continue;
-                                parsedCSV_o[idx].pop();
-                                parsedCSV_o[idx].push(category.pop())
-                            }
-                            var new_csv = d3.csvFormat(parsedCSV_o);
-                            var new_csv_a = new_csv.split("\n");
-                            var new_csv_f = "";
-                            for (idx in new_csv_a) {
-                                if (idx === "0") continue;
-                                new_csv_f += new_csv_a[idx] + "\n";
-                            }
-                            $.ajax({
-                                type: 'POST',
-                                url: 'https://42q6iw44o2.execute-api.ap-southeast-1.amazonaws.com/api/confirm',
-                                dataType: "text",
-                                data: {
-                                    'uuid': uuid,
-                                    'file': new_csv_f
-                                },
-                                success: function (data) {
-                                    //hide the table
-
-                                }
-                            });
-                        });
-                    });
-                    this.on("sending", function (file, xhr, formData) {
-                        // Will send the filesize along with the file as POST data.
-                        formData.append("filesize", file.size);
-                    });
-                }
-            };
-        });
-
-    </script>
+    <script src="Pages/js/demo.js"></script>
 </head>
 <body>
 
@@ -418,16 +74,23 @@
                 <!-- End Dropzonejs -->
 
             </div>
-            <div class="panel">
+            <div id="submit_alert" class="demo-preview-alert" style="display: none">
+                <!-- Alert layout example -->
+                <div class="alert alert-success">
+                    <strong>Well done!</strong> You successfully submit a confirm.
+                </div>
+                <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            </div>
+            <div id="Statements_panel" class="panel" style="display: none">
                 <div class="panel-heading">
                     <h3 class="panel-title">Statements</h3>
                 </div>
                 <!--Tabs Content-->
                 <div class="tab-content">
-                    <div id="demo-stk-lft-tab-1" class="tab-pane fade active in">
+                    <div>
                         <!-- Basic Data Tables -->
                         <!--===================================================-->
-                        <div class="panel">
+                        <div id="submit_table" class="panel">
                             <div class="panel-body" id="table_div">
                             </div>
                             <div class="panel-footer text-right">
@@ -449,7 +112,7 @@
 
         </div>
         <div class="btn-toolbar">
-            <div id="years_button" class="btn-group">
+            <div id="years_button" style="margin-left: 30px" class="btn-group">
             </div>
         </div>
         <!--===================================================-->
@@ -458,43 +121,7 @@
             <!--===================================================-->
             <div class="tab-base tab-stacked-left">
                 <!--Nav tabs-->
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a name="tabs_month" data-toggle="tab">Jan</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Feb</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Mar</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Apr</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">May</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Jun</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Jul</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Aug</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Sep</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Oct</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Nov</a>
-                    </li>
-                    <li>
-                        <a name="tabs_month" data-toggle="tab">Dec</a>
-                    </li>
+                <ul id="month_list" class="nav nav-tabs">
                 </ul>
 
                 <!--Tabs Content-->
@@ -561,7 +188,7 @@
 <!--Chosen [ OPTIONAL ]-->
 <script src="Pages/plugins/chosen/chosen.jquery.min.js"></script>
 
-!--Flot Pie Chart [ OPTIONAL ]-->
+<!--Flot Pie Chart [ OPTIONAL ]-->
 <script src="Pages/plugins/flot-charts/jquery.flot.pie.min.js"></script>
 
 <!--Nifty Admin [ RECOMMENDED ]-->
@@ -578,6 +205,10 @@
 
 <!--Demo script [ DEMONSTRATION ]-->
 <script src="Pages/js/demo/nifty-demo.min.js"></script>
+
+
+<!--Alerts [ SAMPLE ]-->
+<!--<script src="Pages/js/demo/ui-alerts.js"></script>-->
 
 
 </body>
