@@ -59,6 +59,7 @@ $(function () {
                 parsedCSV.shift();
                 for (var idx in parsedCSV) {
                     var cells = parsedCSV[idx];
+                    if(cells[3].includes('CR')) continue;
                     var year = cells[5].split("-")[0];
                     var month = mont_dict[cells[5].split("-")[1]];
                     var category = cells[6];
@@ -71,7 +72,6 @@ $(function () {
                     if (!tmp_dataset[year][month][category]) {
                         tmp_dataset[year][month][category] = 0
                     }
-                    if(cells[3].includes('CR')) continue;
                     var money = parseFloat(cells[3].replace(',', '').replace(' ', ''));
                     tmp_dataset[year][month][category] += money;
                 }
