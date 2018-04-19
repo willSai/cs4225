@@ -101,7 +101,9 @@
                     }
 
                     d3.select("#years_button").selectAll("*").remove();
-                    d3.select("#years_button").append("button").attr("class", "btn btn-default btn-active-purple").attr("name", "year_button_i").text(Object.keys(tmp_dataset));
+                    Object.keys(tmp_dataset).forEach(function (key) {
+                        d3.select("#years_button").append("button").attr("class", "btn btn-default btn-active-purple").attr("name", "year_button_i").text(key);
+                    });
                     $("button[name='year_button_i']").click(function () {
                         $("button[name='year_button_i']").removeClass("active");
                         $(this).addClass("active");
