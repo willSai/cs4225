@@ -59,7 +59,7 @@ $(function () {
                 parsedCSV.shift();
                 for (var idx in parsedCSV) {
                     var cells = parsedCSV[idx];
-                    if(cells[3].includes('CR')) continue;
+                    if (cells[3].includes('CR')) continue;
                     var year = cells[5].split("-")[0];
                     var month = mont_dict[cells[5].split("-")[1]];
                     var category = cells[6];
@@ -130,8 +130,18 @@ $(function () {
             total_money += parseFloat(tmp[key])
         });
 
+        // Create items array
+        var items = Object.keys(tmp).map(function (key) {
+            return [key, tmp[key]];
+        });
 
-        Object.keys(tmp).forEach(function (key) {
+// Sort the array based on the second element
+        items.sort(function (first, second) {
+            return second[1] - first[1];
+        });
+
+        for (var item in items) {
+            var key = items[item][0];
             var color = getRandomColor();
             // data for pie chart
             chart_data.push({label: key, data: tmp[key].toFixed(2), color: color});
@@ -143,7 +153,9 @@ $(function () {
             // rebuild progress bar
             panel_bar.append("p").text(key + "  $ " + tmp[key].toFixed(2));
             panel_bar.append("div").attr("class", "progress").append("div").style("width", percent).style("background-color", color).attr("class", "progress-bar progress-bar-info");
-        });
+
+        }
+
 
         // rebuild pie chart
         $.plot('#demo-flot-donut', chart_data, {
@@ -152,7 +164,7 @@ $(function () {
                     show: true,
                     combine: {
                         color: '#999',
-                        threshold: 0.1
+                        threshold: 0.05
                     }
                 }
             },
