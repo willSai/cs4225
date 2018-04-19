@@ -11,6 +11,7 @@ $(function () {
         uuid = uuidv4();
         localStorage.setItem("uuid", uuidv4());
     }
+    // uuid = '0f6e3f93-5d02-45f2-b745-052b92769ca1';
 
     console.log(uuid);
 
@@ -70,7 +71,8 @@ $(function () {
                     if (!tmp_dataset[year][month][category]) {
                         tmp_dataset[year][month][category] = 0
                     }
-                    var money = parseFloat(cells[3].replace(',', '').replace('CR', '').replace(' ', ''));
+                    if(cells[3].includes('CR')) continue;
+                    var money = parseFloat(cells[3].replace(',', '').replace(' ', ''));
                     tmp_dataset[year][month][category] += money;
                 }
 
