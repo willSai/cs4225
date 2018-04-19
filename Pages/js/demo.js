@@ -139,8 +139,8 @@ $(function () {
 //                        }
             percent = percent.toFixed(2) + "%";
             // rebuild progress bar
-            panel_bar.append("p").text(key);
-            panel_bar.append("div").attr("class", "progress").append("div").style("width", percent).style("background-color", color).attr("class", "progress-bar progress-bar-info").text("$ " + tmp[key].toFixed(2));
+            panel_bar.append("p").text(key + "  $ " + tmp[key].toFixed(2));
+            panel_bar.append("div").attr("class", "progress").append("div").style("width", percent).style("background-color", color).attr("class", "progress-bar progress-bar-info");
         });
 
         // rebuild pie chart
