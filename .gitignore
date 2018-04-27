@@ -1,2 +1,4 @@
 *.pdf
 .idea
+cleaning/pdf-mining/*.csv
+classification/assets/*.csv
